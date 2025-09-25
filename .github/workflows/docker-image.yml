@@ -66,9 +66,9 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            iam9527/derper:${{ env.TAILSCALE_VERSION }}
-            iam9527/derper:latest
-            iam9527/derper:${{ github.sha }}
+            edu9527/derper:${{ env.TAILSCALE_VERSION }}
+            edu9527/derper:latest
+            edu9527/derper:${{ github.sha }}
             ghcr.io/${{ github.actor }}/derper:${{ env.TAILSCALE_VERSION }}
             ghcr.io/${{ github.actor }}/derper:latest
           build-args: |
