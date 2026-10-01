@@ -1,6 +1,6 @@
 # --- Builder Stage ---
 # 使用一个特定的 Go 版本以保证构建的可复现性，如果要最新可以`golang:alpine`
-FROM golang:1.25-alpine AS builder
+FROM golang:1.26-alpine AS builder
 
 # 设置工作目录
 WORKDIR /app
