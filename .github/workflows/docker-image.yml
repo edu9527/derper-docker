@@ -35,8 +35,16 @@ jobs:
 
       - name: Get latest tailscale version
         run: |
-          TAILSCALE_VERSION=$(curl -s https://api.github.com/repos/tailscale/tailscale/releases/latest | jq -r '.tag_name')
+          TAILSCALE_VERSION=$(curl -fsSL \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/tailscale/tailscale/releases/latest \
+            | jq -er '.tag_name')
           echo "Latest tailscale version: $TAILSCALE_VERSION"
+          case "$TAILSCALE_VERSION" in
+            v[0-9]*) ;;
+            *) echo "invalid tailscale version: $TAILSCALE_VERSION" >&2; exit 1 ;;
+          esac
           echo "TAILSCALE_VERSION=$TAILSCALE_VERSION" >> "$GITHUB_ENV"
 
       - name: Check if the image exists
